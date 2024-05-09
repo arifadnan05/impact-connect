@@ -1,11 +1,35 @@
+import { useContext } from "react"
+import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
+import { AuthContext } from "../../../firebase/Provider/AuthProvider"
 
 const Login = () => {
+
+
+  const { logInUser } = useContext(AuthContext)
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const onSubmit = (data) => {
+    const {email, password} = data;
+    logInUser(email, password)
+    .then(result => {
+      console.log(result.user)
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }
+
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form className="w-full max-w-md">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
 
             <h1 className="mt-3 text-center text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">sign In</h1>
 
@@ -16,7 +40,14 @@ const Login = () => {
                 </svg>
               </span>
 
-              <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" {...register("email", { required: true })} />
+                </div>
+                <div className="w-full">
+                  {errors.email && <span>This field is required</span>}
+                </div>
+              </div>
             </div>
 
             <div className="relative flex items-center mt-4">
@@ -26,7 +57,14 @@ const Login = () => {
                 </svg>
               </span>
 
-              <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" {...register("password", { required: true })} />
+                </div>
+                <div className="w-full">
+                  {errors.password && <span>This field is required</span>}
+                </div>
+              </div>
             </div>
 
             <div className="mt-6">
