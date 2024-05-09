@@ -1,11 +1,38 @@
+import { useContext } from "react"
+import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
+import { AuthContext } from "../../../firebase/Provider/AuthProvider"
 
 const Register = () => {
+  const { createUser, updateNameAndPhoto } = useContext(AuthContext)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+
+  const onSubmit = (data) => {
+    const { name, photoUrl, email, password } = data;
+    createUser(email, password)
+      .then(result => {
+        updateNameAndPhoto(name, photoUrl)
+        console.log(result.user)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+
+
+
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form className="w-full max-w-md">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md">
 
 
             <div className="flex items-center justify-center mt-6">
@@ -23,19 +50,33 @@ const Register = () => {
                 </svg>
               </span>
 
-              <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" {...register("name", { required: true })} />
+                </div>
+                <div className="w-full">
+                  {errors.name && <span>This field is required</span>}
+                </div>
+              </div>
             </div>
 
-            
+
 
             <div className="relative flex items-center mt-6">
               <span className="absolute">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
               </span>
 
-              <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Photo URL" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Photo URL" {...register("photoUrl", { required: true })} />
+                </div>
+                <div className="w-full">
+                  {errors.photoUrl && <span>This field is required</span>}
+                </div>
+              </div>
             </div>
             <div className="relative flex items-center mt-6">
               <span className="absolute">
@@ -44,7 +85,16 @@ const Register = () => {
                 </svg>
               </span>
 
-              <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" {...register("email", { required: true })} />
+                </div>
+
+                <div className="w-full">
+                  {errors.email && <span>This field is required</span>}
+                </div>
+              </div>
+
             </div>
 
             <div className="relative flex items-center mt-4">
@@ -54,10 +104,17 @@ const Register = () => {
                 </svg>
               </span>
 
-              <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+              <div className="w-full">
+                <div className="w-full">
+                  <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" {...register("password", { required: true })} />
+                </div>
+                <div className="w-full">
+                  {errors.password && <span>This field is required</span>}
+                </div>
+              </div>
             </div>
 
-            
+
             <div className="mt-6">
               <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 Sign Up
