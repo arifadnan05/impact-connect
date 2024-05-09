@@ -2,7 +2,7 @@
 const VolunteerNeeds = () => {
   return (
     <div>
-      <h1>Volunteer Needs page</h1>
+      <h1>Volunteer Needs section</h1>
     </div>
   )
 }
