@@ -1,11 +1,11 @@
-import Banner from './Banner/Banner'
+import Carousel from './Banner/Carousel'
+import Banner from './Banner/Carousel'
 import VolunteerNeeds from './VolunteerNeeds/VolunteerNeeds'
 
 const Home = () => {
   return (
     <div>
-      <h1>This is homepage</h1>
-      <Banner></Banner>
+      <Carousel></Carousel>
       <VolunteerNeeds></VolunteerNeeds>
     </div>
   )

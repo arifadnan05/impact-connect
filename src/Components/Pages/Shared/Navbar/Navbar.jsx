@@ -1,13 +1,18 @@
 import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../../firebase/Provider/AuthProvider"
 import auth from "../../../../firebase/firebase.config"
+import { toast } from "react-toastify"
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
-    const { photoURL } = user;
+    const location = useLocation();
+    const navigate = useNavigate();
     const handleLogOut = () => {
-        return logOut(auth)
+        logOut(auth)
+        navigate(location?.state ? location.state : '/login')
+        toast.success('Logout successful')
+
     }
 
     const navLinks = <>
@@ -40,7 +45,7 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </div>
-                        <ul tabIndex={0} className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-64">
+                        <ul tabIndex={0} className="menu dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-64">
 
                             {navLinks}
                         </ul>
@@ -48,27 +53,52 @@ const Navbar = () => {
                     <a className="btn btn-ghost text-xl">ImpactConnect</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1 z-50">
                         {navLinks}
                     </ul>
                 </div>
                 <div className="navbar-end">
 
-
-
                     {
-                        user ? <img className="object-cover w-12 h-12 rounded-full ring ring-gray-300 dark:ring-gray-600" src={photoURL}/> :
-
-                            <Link to='/login'>
-                                <button className="btn">Login</button>
-                            </Link>
-
+                        !user && <Link to='/login'><button className="btn">Login</button></Link>
                     }
 
+                    {
+                        user && <div className='dropdown dropdown-end z-50'>
+                            <div
+                                tabIndex={0}
+                                role='button'
+                                className='btn btn-ghost btn-circle avatar'
+                            >
+                                <div className='w-10 rounded-full' title={user?.displayName}>
+                                    <img
+                                        referrerPolicy='no-referrer'
+                                        alt='User Profile Photo'
+                                        src={user?.photoURL}
+                                    />
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'>
+
+
+                                <p className="ml-4 mb-4">{user?.displayName}</p>
+
+                                <li className='mt-2'>
+                                    <button onClick={handleLogOut} className='bg-gray-200 block text-center'>Logout</button>
+                                </li>
+                            </ul>
                         </div>
+                    }
+
+
+
+
+                </div>
             </div>
-            </div>
-            )
+        </div>
+    )
 }
 
-            export default Navbar
+export default Navbar

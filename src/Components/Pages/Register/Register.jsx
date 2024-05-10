@@ -1,10 +1,12 @@
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider"
+import Swal from "sweetalert2"
 
 const Register = () => {
-  const { createUser, updateNameAndPhoto } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const { createUser, setUser, user, updateNameAndPhoto } = useContext(AuthContext)
 
   const {
     register,
@@ -18,6 +20,13 @@ const Register = () => {
     createUser(email, password)
       .then(result => {
         updateNameAndPhoto(name, photoUrl)
+        setUser({...user, photoURL: photoUrl, displayName: name})
+        navigate('/')
+        Swal.fire({
+          title: "Success!",
+          text: "Your registration was successful!",
+          icon: "success"
+        });
         console.log(result.user)
       })
       .catch(error => {

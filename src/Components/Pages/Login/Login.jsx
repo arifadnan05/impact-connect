@@ -1,13 +1,15 @@
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider"
+import Swal from "sweetalert2"
 
 const Login = () => {
 
 
   const { logInUser } = useContext(AuthContext)
-
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -19,6 +21,12 @@ const Login = () => {
     logInUser(email, password)
     .then(result => {
       console.log(result.user)
+      Swal.fire({
+        title: "Success",
+        text: "Login success!",
+        icon: "success"
+      });
+      navigate(location?.state ? location.state : '/')
     })
     .catch(error => {
       console.error(error)
