@@ -1,5 +1,4 @@
 import Carousel from './Banner/Carousel'
-import Banner from './Banner/Carousel'
 import VolunteerNeeds from './VolunteerNeeds/VolunteerNeeds'
 
 const Home = () => {
