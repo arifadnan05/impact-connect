@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css'
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
+import axios from "axios";
 
 const AddVolunteer = () => {
+  const { user } = useContext(AuthContext)
   const [startDate, setStartDate] = useState(new Date());
-
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+  const email = user?.email;
+  const userName = user?.displayName;
+  const date = startDate;
 
-  const onSubmit = (data) => console.log(data)
+
+  const onSubmit = (data) => {
+    const { post_title, thumbnailUrl, category, location, volunteers_number, description } = data;
+    axios.post('http://localhost:5000/add-job-post', {
+      post_title, thumbnailUrl, category, location, volunteers_number, description, email, userName, date
+    })
+      .then(res => {
+        console.log(res.data)
+      })
+  }
 
 
   return (
@@ -24,13 +38,13 @@ const AddVolunteer = () => {
         <div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-2">
           <div>
             <label className="text-gray-700 dark:text-gray-200" htmlFor="username">Post Title</label>
-            <input placeholder="Post title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("post_title", { required: true })}/>
+            <input placeholder="Post title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("post_title", { required: true })} />
             {errors.post_title && <span>This field is required</span>}
           </div>
 
           <div>
             <label className="text-gray-700 dark:text-gray-200" htmlFor="emailAddress">Thumbnail URL</label>
-            <input placeholder="Thumbnail URL" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("thumbnailUrl", { required: true })}/>
+            <input placeholder="Thumbnail URL" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("thumbnailUrl", { required: true })} />
             {errors.thumbnailUrl && <span>This field is required</span>}
           </div>
 
@@ -56,13 +70,13 @@ const AddVolunteer = () => {
           </div>
 
           <div>
-            <label className="text-gray-700 dark:text-gray-200" htmlFor="username">Organizer Name</label>
-            <input placeholder="Organizer Name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("organizer_name", { required: true })}/>
+            <label className="text-gray-700 dark:text-gray-200">Organizer Name</label>
+            <input defaultValue={user?.displayName} readOnly={true} placeholder="Organizer Name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
           </div>
 
           <div>
             <label className="text-gray-700 dark:text-gray-200" htmlFor="username">Organizer Email</label>
-            <input placeholder="Organizer Email" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" {...register("organizer_email", { required: true })}/>
+            <input defaultValue={user?.email} readOnly={true} placeholder="Organizer Email" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
           </div>
 
           <div>
