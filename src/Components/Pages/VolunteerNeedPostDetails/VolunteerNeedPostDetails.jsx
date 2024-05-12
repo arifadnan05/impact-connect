@@ -1,8 +1,8 @@
-import { useLoaderData } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 
 const VolunteerNeedPostDetails = () => {
   const jobPost = useLoaderData();
-  const { post_title, thumbnailUrl, description, category } = jobPost
+  const { post_title, thumbnailUrl, description, category, _id } = jobPost
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl border">
       <div className="w-1/2 border flex items-center">
@@ -13,7 +13,9 @@ const VolunteerNeedPostDetails = () => {
         <p>Volunteer Category : {category}</p>
         <p>{description}</p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Be a Volunteer</button>
+          <Link to={`/be-volunteer/${_id}`}>
+            <button className="btn btn-primary">Be a Volunteer</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -15,15 +15,15 @@ const AddVolunteer = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const email = user?.email;
-  const userName = user?.displayName;
+  const organizerEmail = user?.email;
+  const OrganizerName = user?.displayName;
   const deadline = startDate;
 
 
   const onSubmit = (data) => {
     const { post_title, thumbnailUrl, category, location, volunteers_number, description } = data;
     axios.post('http://localhost:5000/add-job-post', {
-      post_title, thumbnailUrl, category, location, volunteers_number, description, email, userName, deadline
+      post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline
     })
       .then(res => {
         if(res?.data?.insertedId){
