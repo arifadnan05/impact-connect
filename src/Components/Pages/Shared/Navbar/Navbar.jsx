@@ -32,8 +32,8 @@ const Navbar = () => {
                     <Link to='/manage-my-post'>
                         <li><a>Manage My Post</a></li>
                     </Link>
-                    <Link to='/my-request-post'>
-                        <li><a>My Volunteer Requested Post</a></li>
+                    <Link to={`/my-volunteer-request/${user?.email}`}>
+                        <li><a>My Volunteer Requested</a></li>
                     </Link>
                 </ul>
             </details>
