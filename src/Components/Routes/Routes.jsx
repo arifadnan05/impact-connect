@@ -33,8 +33,9 @@ const router = createBrowserRouter([
                 element: <AddVolunteer></AddVolunteer>
             },
             {
-                path: '/manage-my-post',
-                element: <ManageMyPost></ManageMyPost>
+                path: '/manage-my-post/:email',
+                element: <ManageMyPost></ManageMyPost>,
+                loader: ({ params }) => fetch(`http://localhost:5000/my-job-post/${params.email}`)
             },
             {
                 path: '/my-volunteer-request/:email',

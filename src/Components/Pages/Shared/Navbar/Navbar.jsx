@@ -29,7 +29,7 @@ const Navbar = () => {
                     <Link to='/add-volunteer'>
                         <li><a>Add Volunteer Post</a></li>
                     </Link>
-                    <Link to='/manage-my-post'>
+                    <Link to={`/manage-my-post/${user?.email}`}>
                         <li><a>Manage My Post</a></li>
                     </Link>
                     <Link to={`/my-volunteer-request/${user?.email}`}>
