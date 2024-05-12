@@ -6,6 +6,8 @@ import Register from "../Pages/Register/Register";
 import AddVolunteer from "../Pages/Shared/Navbar/AddVolunteer/AddVolunteer";
 import ManageMyPost from "../Pages/Shared/Navbar/MangeMyPost/ManageMyPost";
 import MyRequestPost from "../Pages/Shared/Navbar/MyRequestPost/MyRequestPost";
+import VolunteerNeedPostDetails from "../Pages/VolunteerNeedPostDetails/VolunteerNeedPostDetails";
+import VolunteerNeeds from "../Pages/Home/VolunteerNeeds/VolunteerNeeds";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +16,8 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>
+                element: <Home></Home>,
+                loader: () => fetch('http://localhost:5000/add-job-post')
             },
             {
                 path: '/login',
@@ -35,8 +38,19 @@ const router = createBrowserRouter([
             {
                 path: '/my-request-post',
                 element: <MyRequestPost></MyRequestPost>
-            }
-        ]
-    }
+            },
+            {
+                path: '/need-volunteer',
+                element: <VolunteerNeeds></VolunteerNeeds>,
+                loader: () => fetch('http://localhost:5000/all-job-post')
+            },
+            {
+                path: '/volunteer-job-post-details/:id',
+                element: <VolunteerNeedPostDetails></VolunteerNeedPostDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
+            },
+
+        ],
+    },
 ])
 export default router;

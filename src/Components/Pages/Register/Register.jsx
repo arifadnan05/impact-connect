@@ -27,7 +27,7 @@ const Register = () => {
           text: "Your registration was successful!",
           icon: "success"
         });
-        console.log(result.user)
+        // console.log(result.user)
       })
       .catch(error => {
         console.error(error)

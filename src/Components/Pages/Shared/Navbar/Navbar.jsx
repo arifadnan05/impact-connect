@@ -19,7 +19,9 @@ const Navbar = () => {
         <Link to='/'>
             <li><a>Home</a></li>
         </Link>
-        <li><a>Need Volunteer</a></li>
+        <Link to='/need-volunteer'>
+            <li><a>Need Volunteer</a></li>
+        </Link>
         <li>
             <details>
                 <summary>My Profile</summary>

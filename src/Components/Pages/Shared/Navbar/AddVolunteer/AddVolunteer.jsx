@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddVolunteer = () => {
   const { user } = useContext(AuthContext)
@@ -16,16 +17,22 @@ const AddVolunteer = () => {
   } = useForm()
   const email = user?.email;
   const userName = user?.displayName;
-  const date = startDate;
+  const deadline = startDate;
 
 
   const onSubmit = (data) => {
     const { post_title, thumbnailUrl, category, location, volunteers_number, description } = data;
     axios.post('http://localhost:5000/add-job-post', {
-      post_title, thumbnailUrl, category, location, volunteers_number, description, email, userName, date
+      post_title, thumbnailUrl, category, location, volunteers_number, description, email, userName, deadline
     })
       .then(res => {
-        console.log(res.data)
+        if(res?.data?.insertedId){
+          Swal.fire({
+            title: "Awesome!",
+            text: "Your job post was successful!",
+            icon: "success"
+          });
+        }
       })
   }
 
