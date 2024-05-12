@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const BeAVolunteer = () => {
 
     const volunteer = useLoaderData();
     const { post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline } = volunteer;
     const { user } = useContext(AuthContext)
-    const loggedInUserName = user.displayName;
-    const loggedInUserEmail = user.email;
+    const loggedInUserName = user?.displayName;
+    const loggedInUserEmail = user?.email;
 
 
 
@@ -16,8 +18,22 @@ const BeAVolunteer = () => {
         e.preventDefault();
         const suggestion = e.target.suggestion.value;
         const status = e.target.status.value;
-        const requestVolunteer = {loggedInUserEmail, loggedInUserName, post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline, suggestion, status}
-        console.log(requestVolunteer)
+        
+
+
+
+        axios.post('http://localhost:5000/request-volunteer-job', {
+            loggedInUserEmail, loggedInUserName, post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline, suggestion, status
+    })
+      .then(res => {
+        if(res?.data?.insertedId){
+          Swal.fire({
+            title: "Awesome!",
+            text: "Your volunteer request was successful!",
+            icon: "success"
+          });
+        }
+      })
     }
 
 
