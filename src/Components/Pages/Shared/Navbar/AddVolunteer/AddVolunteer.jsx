@@ -22,18 +22,24 @@ const AddVolunteer = () => {
 
   const onSubmit = (data) => {
     const { post_title, thumbnailUrl, category, location, volunteers_number, description } = data;
-    axios.post('http://localhost:5000/add-job-post', {
-      post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline
-    })
-      .then(res => {
-        if(res?.data?.insertedId){
-          Swal.fire({
-            title: "Awesome!",
-            text: "Your job post was successful!",
-            icon: "success"
-          });
-        }
+    try {
+      axios.post('http://localhost:5000/add-job-post', {
+        post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline
       })
+        .then(res => {
+          if (res?.data?.insertedId) {
+            Swal.fire({
+              title: "Awesome!",
+              text: "Your job post was successful!",
+              icon: "success"
+            });
+          }
+        })
+    }
+    catch (err) {
+      console.log('asd')
+      console.log('I am error message ', err.message)
+    }
   }
 
 

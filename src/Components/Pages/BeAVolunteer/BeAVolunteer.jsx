@@ -15,25 +15,26 @@ const BeAVolunteer = () => {
 
 
     const handleRequestVolunteer = e => {
+        if(loggedInUserEmail === organizerEmail) return alert('You not apply for this job')
         e.preventDefault();
         const suggestion = e.target.suggestion.value;
         const status = e.target.status.value;
-        
+
 
 
 
         axios.post('http://localhost:5000/request-volunteer-job', {
             loggedInUserEmail, loggedInUserName, post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline, suggestion, status
-    })
-      .then(res => {
-        if(res?.data?.insertedId){
-          Swal.fire({
-            title: "Awesome!",
-            text: "Your volunteer request was successful!",
-            icon: "success"
-          });
-        }
-      })
+        })
+            .then(res => {
+                if (res?.data?.insertedId) {
+                    Swal.fire({
+                        title: "Awesome!",
+                        text: "Your volunteer request was successful!",
+                        icon: "success"
+                    });
+                }
+            })
     }
 
 
@@ -79,7 +80,7 @@ const BeAVolunteer = () => {
                     </div>
                     <div>
                         <label className="text-gray-700 dark:text-gray-200">Deadline</label>
-                        <input defaultValue={deadline} readOnly={true} placeholder="Deadline" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        <input defaultValue={new Date(deadline).toLocaleDateString()} readOnly={true} placeholder="Deadline" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                     </div>
 
                     <div>

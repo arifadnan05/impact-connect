@@ -10,7 +10,7 @@ const HomeJobPost = ({ item }) => {
                 <div className="card-body">
                     <h2 className="card-title">{post_title}</h2>
                     <p>{category}</p>
-                    <p>{deadline}</p>
+                    <p>{new Date(deadline).toLocaleDateString()}</p>
                     <div className="card-actions justify-center">
                         <Link to={`/volunteer-job-post-details/${_id}`}>
                             <button className="btn btn-primary">View details</button>

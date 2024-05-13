@@ -9,6 +9,7 @@ import MyRequestPost from "../Pages/Shared/Navbar/MyRequestPost/MyRequestPost";
 import VolunteerNeedPostDetails from "../Pages/VolunteerNeedPostDetails/VolunteerNeedPostDetails";
 import VolunteerNeeds from "../Pages/Home/VolunteerNeeds/VolunteerNeeds";
 import BeAVolunteer from "../Pages/BeAVolunteer/BeAVolunteer";
+import UpdateMyPost from "../Pages/Shared/Navbar/MangeMyPost/UpdateMyPost/UpdateMyPost";
 
 const router = createBrowserRouter([
     {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
             {
                 path: '/manage-my-post/:email',
                 element: <ManageMyPost></ManageMyPost>,
-                loader: ({ params }) => fetch(`http://localhost:5000/my-job-post/${params.email}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/my-job-posts/${params.email}`)
             },
             {
                 path: '/my-volunteer-request/:email',
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
             {
                 path: '/be-volunteer/:id',
                 element: <BeAVolunteer></BeAVolunteer>,
+                loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
+            },
+            {
+                path: '/update-my-job-post/:id',
+                element: <UpdateMyPost></UpdateMyPost>,
                 loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
             }
 

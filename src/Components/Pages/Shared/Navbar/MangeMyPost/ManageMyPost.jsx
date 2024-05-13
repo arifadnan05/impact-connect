@@ -1,7 +1,21 @@
+import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom"
 
 const ManageMyPost = () => {
   const myJobPost = useLoaderData();
+
+  const handleDelete = async id => {
+    try {
+      await axios.delete(`http://localhost:5000/my-job-post/${id}`)
+
+      alert('Deleted Successfully')
+    }
+    catch (err) {
+      console.log(err.message)
+      console.log(err.message)
+
+    }
+  }
 
   return (
     <div className="overflow-x-auto min-h-[60vh]">
@@ -35,10 +49,12 @@ const ManageMyPost = () => {
               <td>{item.category}</td>
               <td>{item.location}</td>
               <th>
-                <button className="btn btn-primary">Update</button>
+                <Link to={`/update-my-job-post/${item?._id}`}>
+                  <button className="btn btn-primary">Update</button>
+                </Link>
               </th>
               <th>
-                <button className="btn btn-primary">Delete</button>
+                <button onClick={() => handleDelete(item._id)} className="btn btn-primary">Delete</button>
               </th>
             </tr>)
           }
