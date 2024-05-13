@@ -1,14 +1,20 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css'
 import { useForm } from "react-hook-form"
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../../../../firebase/Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const UpdateMyPost = () => {
     const [startDate, setStartDate] = useState(new Date());
     const updatePost = useLoaderData();
-    const { thumbnailUrl, description, post_title, category, location, volunteers_number, deadline } = updatePost;
+    const { user } = useContext(AuthContext)
+    const organizerEmail = user?.email;
+    const OrganizerName = user?.displayName;
+    const { thumbnailUrl, description, post_title, category, location, volunteers_number, deadline, _id } = updatePost;
 
     const {
         register,
@@ -16,8 +22,24 @@ const UpdateMyPost = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
+        // console.log(data)
+        const { thumbnailUrl, description, post_title, category, location, volunteers_number, deadline } = data;
+        const modifyJobPost = {thumbnailUrl, description, post_title, category, location, volunteers_number, deadline, organizerEmail, OrganizerName}
+
+
+        try {
+            const { data } = await axios.put(`http://localhost:5000/my-job-post/${_id}`, modifyJobPost)
+            console.log(data)
+            if(data.modifiedCount > 0) {
+
+                alert('Job data updated successful')
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+       
     }
 
 
@@ -65,12 +87,12 @@ const UpdateMyPost = () => {
 
                     <div>
                         <label className="text-gray-700 dark:text-gray-200">Organizer Name</label>
-                        <input readOnly={true} placeholder="Organizer Name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        <input defaultValue={OrganizerName} readOnly={true} placeholder="Organizer Name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                     </div>
 
                     <div>
                         <label className="text-gray-700 dark:text-gray-200" htmlFor="username">Organizer Email</label>
-                        <input readOnly={true} placeholder="Organizer Email" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                        <input defaultValue={organizerEmail} readOnly={true} placeholder="Organizer Email" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                     </div>
 
                     <div>
