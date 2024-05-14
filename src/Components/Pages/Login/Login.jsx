@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider"
 import Swal from "sweetalert2"
+import axios from "axios"
 
 const Login = () => {
 
@@ -16,12 +17,11 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => {
-    const { email, password } = data;
+  const onSubmit = async (dataa) => {
+    const { email, password } = dataa;
 
-    logInUser(email, password)
-      .then(result => {
-        console.log(result.user)
+    const result = await logInUser(email, password)
+      .then(() => {
         Swal.fire({
           title: "Login Success!",
           text: "You have successfully login!",
@@ -37,8 +37,15 @@ const Login = () => {
           footer: 'Please provide a valid email and password'
         });
       })
+
+    const { data } = await axios.post('http://localhost:5000/jwt', { email: result?.result?.user?.email },
+      {withCredentials: true}
+      
+    )
+    console.log(data)
+
   }
-  
+
   // const handleGoogleLogin = () => {
   //   googleSignIn()
   //     .then((userCredential) => {

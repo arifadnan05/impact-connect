@@ -1,9 +1,24 @@
 import axios from "axios";
-import { useLoaderData } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
 
 const MyRequestPost = () => {
-  const requestJob = useLoaderData();
+  // const requestJob = useLoaderData();
+
+  const [requestJob, setRequestJob] = useState([])
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    getData()
+  }, [user])
+
+  const getData = async () => {
+    const { data } = await axios(`http://localhost:5000/request-volunteer-job/${user?.email}`, {withCredentials: true})
+    setRequestJob(data)
+  }
+
+
   const cancelRequestJob = async id => {
     try {
       Swal.fire({
@@ -23,8 +38,9 @@ const MyRequestPost = () => {
             icon: "success"
           });
         }
+        getData()
       });
-
+      
 
     }
     catch (err) {

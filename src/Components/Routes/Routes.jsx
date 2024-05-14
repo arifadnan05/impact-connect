@@ -36,13 +36,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/manage-my-post/:email',
-                element: <PrivetRoutes><ManageMyPost></ManageMyPost></PrivetRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/my-job-posts/${params.email}`)
+                element: <PrivetRoutes><ManageMyPost></ManageMyPost></PrivetRoutes>
+                // loader: ({ params }) => fetch(`http://localhost:5000/my-job-posts/${params.email}`)
             },
             {
                 path: '/my-volunteer-request/:email',
-                element: <PrivetRoutes><MyRequestPost></MyRequestPost></PrivetRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/request-volunteer-job/${params.email}`)
+                element: <PrivetRoutes><MyRequestPost></MyRequestPost></PrivetRoutes>
+                // loader: ({ params }) => fetch(`http://localhost:5000/request-volunteer-job/${params.email}`)
             },
             {
                 path: '/need-volunteer',

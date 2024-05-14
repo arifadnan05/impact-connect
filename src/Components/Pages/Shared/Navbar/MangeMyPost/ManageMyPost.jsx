@@ -1,10 +1,22 @@
 import axios from "axios";
-import { Link, useLoaderData } from "react-router-dom"
 import Swal from "sweetalert2";
 import Empty from "../../../Empty/Empty";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const ManageMyPost = () => {
-  const myJobPost = useLoaderData();
+  const [myJobPost, setMyJobPost] = useState([])
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    getData()
+  }, [user])
+
+  const getData = async () => {
+    const { data } = await axios(`http://localhost:5000/my-job-posts/${user?.email}`, {withCredentials: true})
+    setMyJobPost(data)
+  }
 
   const handleDelete = async id => {
     try {
@@ -25,6 +37,7 @@ const ManageMyPost = () => {
             icon: "success"
           });
         }
+        getData()
       });
 
 
@@ -35,9 +48,9 @@ const ManageMyPost = () => {
 
     }
   }
-  if(myJobPost < 1){
+  if (myJobPost < 1) {
     return <Empty message={'No Country Available'} address={'/'} label={'Go To Home'}></Empty>
-   }
+  }
   return (
     <div className="overflow-x-auto min-h-[60vh]">
       <table className="table">
@@ -51,7 +64,7 @@ const ManageMyPost = () => {
           </tr>
         </thead>
         <tbody>
-          
+
           {
             myJobPost.map(item => <tr key={item._id}>
               <td>

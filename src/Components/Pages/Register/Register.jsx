@@ -7,7 +7,7 @@ import Swal from "sweetalert2"
 const Register = () => {
   const [errorPassword, setErrorPassword] = useState('')
   const navigate = useNavigate()
-  const { createUser, setUser, user, updateNameAndPhoto } = useContext(AuthContext)
+  const { createUser, setUser, user, updateNameAndPhoto, logOut } = useContext(AuthContext)
 
   const {
     register,
@@ -34,10 +34,11 @@ const Register = () => {
       .then(() => {
         updateNameAndPhoto(name, photoUrl)
         setUser({ ...user, photoURL: photoUrl, displayName: name })
-        navigate('/')
+        navigate('/login')
+        logOut()
         Swal.fire({
           title: "Success!",
-          text: "Your registration was successful!",
+          text: "Your registration was successful please login your account",
           icon: "success"
         });
         // console.log(result.user)
