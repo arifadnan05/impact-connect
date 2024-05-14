@@ -29,8 +29,8 @@ const VolunteerNeeds = () => {
                 <figure><img src={item.thumbnailUrl} /></figure>
                 <div className="card-body">
                   <h2 className="card-title">{item.post_title}</h2>
-                  <p>{item.category}</p>
-                  <p>{new Date(item.deadline).toLocaleDateString()}</p>
+                  <p>Volunteer Category: <span className="font-bold">{item.category}</span></p>
+                  <p>Last Application Date: {new Date(item.deadline).toLocaleDateString()}</p>
                   <div className="card-actions justify-center">
                     <Link to={`/volunteer-job-post-details/${item._id}`}>
                       <button className="btn btn-primary">View details</button>
@@ -48,8 +48,8 @@ const VolunteerNeeds = () => {
               jobPost.map(item => <div key={item._id} className="card bg-base-100 shadow-xl">
                 <div className="card-body">
                   <h2 className="card-title">{item.post_title}</h2>
-                  <p>{item.category}</p>
-                  <p>{new Date(item.deadline).toLocaleDateString()}</p>
+                  <p>Volunteer Category: <span className="font-bold">{item.category}</span></p>
+                  <p>Last Application Date: {new Date(item.deadline).toLocaleDateString()}</p>
                   <div className="card-actions justify-start">
                     <Link to={`/volunteer-job-post-details/${item._id}`}>
                       <button className="btn btn-primary">View details</button>

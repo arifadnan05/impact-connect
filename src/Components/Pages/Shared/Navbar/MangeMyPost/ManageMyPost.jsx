@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom"
 import Swal from "sweetalert2";
+import Empty from "../../../Empty/Empty";
 
 const ManageMyPost = () => {
   const myJobPost = useLoaderData();
@@ -34,7 +35,9 @@ const ManageMyPost = () => {
 
     }
   }
-
+  if(myJobPost < 1){
+    return <Empty message={'No Country Available'} address={'/'} label={'Go To Home'}></Empty>
+   }
   return (
     <div className="overflow-x-auto min-h-[60vh]">
       <table className="table">
@@ -48,6 +51,7 @@ const ManageMyPost = () => {
           </tr>
         </thead>
         <tbody>
+          
           {
             myJobPost.map(item => <tr key={item._id}>
               <td>
