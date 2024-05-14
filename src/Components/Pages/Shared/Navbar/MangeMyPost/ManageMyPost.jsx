@@ -1,14 +1,32 @@
 import axios from "axios";
 import { Link, useLoaderData } from "react-router-dom"
+import Swal from "sweetalert2";
 
 const ManageMyPost = () => {
   const myJobPost = useLoaderData();
 
   const handleDelete = async id => {
     try {
-      await axios.delete(`http://localhost:5000/my-job-post/${id}`)
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to delete this post",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(`http://localhost:5000/my-job-post/${id}`)
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your post has been deleted.",
+            icon: "success"
+          });
+        }
+      });
 
-      alert('Deleted Successfully')
+
     }
     catch (err) {
       console.log(err.message)

@@ -1,7 +1,8 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom'
-import { AuthContext } from '../Provider/AuthProvider';
+import { AuthContext } from '../../firebase/Provider/AuthProvider';
+
 
 const PrivetRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);

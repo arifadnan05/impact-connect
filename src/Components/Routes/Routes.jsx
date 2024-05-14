@@ -10,6 +10,7 @@ import VolunteerNeedPostDetails from "../Pages/VolunteerNeedPostDetails/Voluntee
 import VolunteerNeeds from "../Pages/Home/VolunteerNeeds/VolunteerNeeds";
 import BeAVolunteer from "../Pages/BeAVolunteer/BeAVolunteer";
 import UpdateMyPost from "../Pages/Shared/Navbar/MangeMyPost/UpdateMyPost/UpdateMyPost";
+import PrivetRoutes from "./PrivetRoutes";
 
 const router = createBrowserRouter([
     {
@@ -31,16 +32,16 @@ const router = createBrowserRouter([
             },
             {
                 path: '/add-volunteer',
-                element: <AddVolunteer></AddVolunteer>
+                element: <PrivetRoutes><AddVolunteer></AddVolunteer></PrivetRoutes>
             },
             {
                 path: '/manage-my-post/:email',
-                element: <ManageMyPost></ManageMyPost>,
+                element: <PrivetRoutes><ManageMyPost></ManageMyPost></PrivetRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:5000/my-job-posts/${params.email}`)
             },
             {
                 path: '/my-volunteer-request/:email',
-                element: <MyRequestPost></MyRequestPost>,
+                element: <PrivetRoutes><MyRequestPost></MyRequestPost></PrivetRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:5000/request-volunteer-job/${params.email}`)
             },
             {
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/volunteer-job-post-details/:id',
-                element: <VolunteerNeedPostDetails></VolunteerNeedPostDetails>,
+                element: <PrivetRoutes><VolunteerNeedPostDetails></VolunteerNeedPostDetails></PrivetRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
             },
             {
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/update-my-job-post/:id',
-                element: <UpdateMyPost></UpdateMyPost>,
+                element: <PrivetRoutes><UpdateMyPost></UpdateMyPost></PrivetRoutes>,
                 loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
             }
 

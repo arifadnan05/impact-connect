@@ -4,7 +4,7 @@ const Slide = () => {
         <div
             className='w-full bg-center bg-cover h-[500px]'
             style={{
-                backgroundImage: `url("https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80")`,
+                backgroundImage: `url("https://avenica.com/wp-content/uploads/2021/12/volunteer-blog-photo-scaled.jpg")`,
             }}
         >
             <div className='flex items-center justify-center w-full h-full bg-gray-900/70'>

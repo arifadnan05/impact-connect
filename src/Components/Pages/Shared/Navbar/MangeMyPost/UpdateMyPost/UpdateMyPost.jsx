@@ -5,7 +5,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useForm } from "react-hook-form"
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../../../../firebase/Provider/AuthProvider";
-import Swal from "sweetalert2";
 
 
 const UpdateMyPost = () => {
