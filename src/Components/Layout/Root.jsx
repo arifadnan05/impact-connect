@@ -11,7 +11,7 @@ const Root = () => {
                 <Navbar></Navbar>
                 <ToastContainer />
             </div>
-            <div className='px-24'>
+            <div className='container mx-auto px-6 lg:px-24'>
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

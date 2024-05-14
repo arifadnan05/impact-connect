@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom"
 const VolunteerNeeds = () => {
   const jobPost = useLoaderData();
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         jobPost.map(item => <div key={item._id} className="card h-[460px] bg-base-100 shadow-xl">
           <figure><img src={item.thumbnailUrl} /></figure>

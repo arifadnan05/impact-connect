@@ -1,10 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider"
 import Swal from "sweetalert2"
 
 const Register = () => {
+  const [errorPassword, setErrorPassword] = useState('')
   const navigate = useNavigate()
   const { createUser, setUser, user, updateNameAndPhoto } = useContext(AuthContext)
 
@@ -17,10 +18,22 @@ const Register = () => {
 
   const onSubmit = (data) => {
     const { name, photoUrl, email, password } = data;
+    if (password.length < 6) {
+      setErrorPassword("Password should be at least 6 characters or longer ")
+      return;
+    }
+    else if (!/[A-Z]/.test(password)) {
+      setErrorPassword("Your Password Should be Upper Case");
+      return;
+    }
+    else if (!/[a-z]/.test(password)) {
+      setErrorPassword("Your Password Should be Lower Case");
+      return;
+    }
     createUser(email, password)
-      .then(result => {
+      .then(() => {
         updateNameAndPhoto(name, photoUrl)
-        setUser({...user, photoURL: photoUrl, displayName: name})
+        setUser({ ...user, photoURL: photoUrl, displayName: name })
         navigate('/')
         Swal.fire({
           title: "Success!",
@@ -32,6 +45,7 @@ const Register = () => {
       .catch(error => {
         console.error(error)
       })
+
   }
 
 
@@ -119,6 +133,12 @@ const Register = () => {
                 </div>
                 <div className="w-full">
                   {errors.password && <span>This field is required</span>}
+
+                  {
+
+                    errorPassword && <p>{errorPassword}</p>
+
+                  }
                 </div>
               </div>
             </div>

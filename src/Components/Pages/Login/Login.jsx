@@ -1,10 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../firebase/Provider/AuthProvider"
 import Swal from "sweetalert2"
 
 const Login = () => {
+  const [errorPassword, setErrorPassword] = useState('')
 
 
   const { logInUser } = useContext(AuthContext)
@@ -17,20 +18,37 @@ const Login = () => {
     formState: { errors },
   } = useForm()
   const onSubmit = (data) => {
-    const {email, password} = data;
+    const { email, password } = data;
+    if (password.length < 6) {
+      setErrorPassword("Password should be at least 6 characters or longer ")
+      return;
+    }
+    else if (!/[A-Z]/.test(password)) {
+      setErrorPassword("Your Password Should be Upper Case");
+      return;
+    }
+    else if (!/[a-z]/.test(password)) {
+      setErrorPassword("Your Password Should be Lower Case");
+      return;
+    }
     logInUser(email, password)
-    .then(result => {
-      console.log(result.user)
-      Swal.fire({
-        title: "Success",
-        text: "Login success!",
-        icon: "success"
-      });
-      navigate(location?.state ? location.state : '/')
-    })
-    .catch(error => {
-      console.error(error)
-    })
+      .then(result => {
+        console.log(result.user)
+        Swal.fire({
+          title: "Login Success!",
+          text: "You have successfully login!",
+          icon: "success"
+        });
+        navigate(location?.state ? location.state : '/')
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Your password or email address was wrong!",
+          footer: 'Please provide a valid email and password'
+        });
+      })
   }
 
   return (
@@ -71,6 +89,10 @@ const Login = () => {
                 </div>
                 <div className="w-full">
                   {errors.password && <span>This field is required</span>}
+
+                  {
+                    errorPassword && <p>{errorPassword}</p>
+                  }
                 </div>
               </div>
             </div>
