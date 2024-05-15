@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/add-job-post')
+                loader: () => fetch('https://impact-connect-server.vercel.app/add-job-post')
             },
             {
                 path: '/login',
@@ -37,32 +37,32 @@ const router = createBrowserRouter([
             {
                 path: '/manage-my-post/:email',
                 element: <PrivetRoutes><ManageMyPost></ManageMyPost></PrivetRoutes>
-                // loader: ({ params }) => fetch(`http://localhost:5000/my-job-posts/${params.email}`)
+                // loader: ({ params }) => fetch(`https://impact-connect-server.vercel.app/my-job-posts/${params.email}`)
             },
             {
                 path: '/my-volunteer-request/:email',
                 element: <PrivetRoutes><MyRequestPost></MyRequestPost></PrivetRoutes>
-                // loader: ({ params }) => fetch(`http://localhost:5000/request-volunteer-job/${params.email}`)
+                // loader: ({ params }) => fetch(`https://impact-connect-server.vercel.app/request-volunteer-job/${params.email}`)
             },
             {
                 path: '/need-volunteer',
                 element: <VolunteerNeeds></VolunteerNeeds>,
-                loader: () => fetch('http://localhost:5000/all-job-post')
+                loader: () => fetch('https://impact-connect-server.vercel.app/all-job-post')
             },
             {
                 path: '/volunteer-job-post-details/:id',
                 element: <PrivetRoutes><VolunteerNeedPostDetails></VolunteerNeedPostDetails></PrivetRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
+                loader: ({ params }) => fetch(`https://impact-connect-server.vercel.app/add-job-post/${params.id}`)
             },
             {
                 path: '/be-volunteer/:id',
                 element: <BeAVolunteer></BeAVolunteer>,
-                loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
+                loader: ({ params }) => fetch(`https://impact-connect-server.vercel.app/add-job-post/${params.id}`)
             },
             {
                 path: '/update-my-job-post/:id',
                 element: <PrivetRoutes><UpdateMyPost></UpdateMyPost></PrivetRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/add-job-post/${params.id}`)
+                loader: ({ params }) => fetch(`https://impact-connect-server.vercel.app/add-job-post/${params.id}`)
             }
 
         ],

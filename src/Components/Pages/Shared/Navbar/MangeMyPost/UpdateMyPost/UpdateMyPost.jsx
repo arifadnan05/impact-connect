@@ -28,7 +28,7 @@ const UpdateMyPost = () => {
 
 
         try {
-            const { data } = await axios.put(`http://localhost:5000/my-job-post/${_id}`, modifyJobPost)
+            const { data } = await axios.put(`https://impact-connect-server.vercel.app/my-job-post/${_id}`, modifyJobPost)
             console.log(data)
             if(data.modifiedCount > 0) {
 

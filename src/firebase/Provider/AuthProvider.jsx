@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     // logout 
     const logOut = async () => {
         setLoading(true)
-        await axios('http://localhost:5000/logout', {withCredentials: true})
+        await axios('https://impact-connect-server.vercel.app/logout', {withCredentials: true})
         return signOut(auth)
     }
 

@@ -38,7 +38,7 @@ const Login = () => {
         });
       })
 
-    const { data } = await axios.post('http://localhost:5000/jwt', { email: result?.result?.user?.email },
+    const { data } = await axios.post('https://impact-connect-server.vercel.app/jwt', { email: result?.result?.user?.email },
       {withCredentials: true}
       
     )

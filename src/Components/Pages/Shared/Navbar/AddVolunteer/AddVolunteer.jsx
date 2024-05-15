@@ -23,7 +23,7 @@ const AddVolunteer = () => {
   const onSubmit = (data) => {
     const { post_title, thumbnailUrl, category, location, volunteers_number, description } = data;
     try {
-      axios.post('http://localhost:5000/add-job-post', {
+      axios.post('https://impact-connect-server.vercel.app/add-job-post', {
         post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline
       })
         .then(res => {

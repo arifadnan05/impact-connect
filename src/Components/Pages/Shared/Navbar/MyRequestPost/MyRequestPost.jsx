@@ -14,7 +14,7 @@ const MyRequestPost = () => {
   }, [user])
 
   const getData = async () => {
-    const { data } = await axios(`http://localhost:5000/request-volunteer-job/${user?.email}`, {withCredentials: true})
+    const { data } = await axios(`https://impact-connect-server.vercel.app/request-volunteer-job/${user?.email}`, { withCredentials: true })
     setRequestJob(data)
   }
 
@@ -31,7 +31,7 @@ const MyRequestPost = () => {
         confirmButtonText: "Yes, cancel it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete(`http://localhost:5000/request-job/${id}`)
+          axios.delete(`https://impact-connect-server.vercel.app/request-job/${id}`)
           Swal.fire({
             title: "Deleted!",
             text: "Your post has been deleted.",
@@ -40,7 +40,7 @@ const MyRequestPost = () => {
         }
         getData()
       });
-      
+
 
     }
     catch (err) {

@@ -23,7 +23,7 @@ const BeAVolunteer = () => {
 
 
 
-        axios.post('http://localhost:5000/request-volunteer-job', {
+        axios.post('https://impact-connect-server.vercel.app/request-volunteer-job', {
             loggedInUserEmail, loggedInUserName, post_title, thumbnailUrl, category, location, volunteers_number, description, organizerEmail, OrganizerName, deadline, suggestion, status
         })
             .then(res => {

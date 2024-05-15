@@ -14,7 +14,7 @@ const ManageMyPost = () => {
   }, [user])
 
   const getData = async () => {
-    const { data } = await axios(`http://localhost:5000/my-job-posts/${user?.email}`, {withCredentials: true})
+    const { data } = await axios(`https://impact-connect-server.vercel.app/my-job-posts/${user?.email}`, {withCredentials: true})
     setMyJobPost(data)
   }
 
@@ -30,7 +30,7 @@ const ManageMyPost = () => {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete(`http://localhost:5000/my-job-post/${id}`)
+          axios.delete(`https://impact-connect-server.vercel.app/my-job-post/${id}`)
           Swal.fire({
             title: "Deleted!",
             text: "Your post has been deleted.",
@@ -49,7 +49,7 @@ const ManageMyPost = () => {
     }
   }
   if (myJobPost < 1) {
-    return <Empty message={'No Country Available'} address={'/'} label={'Go To Home'}></Empty>
+    return <Empty message={'Post not found'} address={'/'} label={'Go To Home'}></Empty>
   }
   return (
     <div className="overflow-x-auto min-h-[60vh]">
