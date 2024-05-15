@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddVolunteer = () => {
   const { user } = useContext(AuthContext)
   const [startDate, setStartDate] = useState(new Date());
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -34,6 +35,7 @@ const AddVolunteer = () => {
               icon: "success"
             });
           }
+          navigate('/need-volunteer')
         })
     }
     catch (err) {

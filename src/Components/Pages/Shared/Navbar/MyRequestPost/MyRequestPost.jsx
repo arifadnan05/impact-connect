@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
+import Empty from "../../../Empty/Empty";
 
 const MyRequestPost = () => {
   // const requestJob = useLoaderData();
@@ -49,7 +50,9 @@ const MyRequestPost = () => {
 
     }
   }
-
+  if (requestJob < 1) {
+    return <Empty message={'Request job not found'} address={'/'} label={'Go To Home'}></Empty>
+  }
   return (
     <div className="overflow-x-auto min-h-[60vh]">
       <table className="table">
