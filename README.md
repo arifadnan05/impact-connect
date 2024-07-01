@@ -15,9 +15,20 @@ Visit Our [Server repo](https://github.com/arifadnan05/impact-connect-server)
 
 To get a local copy up and running follow these simple steps.
 
-### Prerequisites
+### Technology Used
 
-Make sure you have npm installed on your system.
+- Git
+- Express js
+- React js
+- tailwind css
+- swiper js
+- sweet alert
+- Daisy ui
+- meraki ui
+- React Router Dom
+- React Hook Form
+- React icon
+- axios
 
 ### Installation
 
