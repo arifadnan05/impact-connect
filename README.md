@@ -11,9 +11,6 @@ Visit Our [Server repo](https://github.com/arifadnan05/impact-connect-server)
 - **Job Application Management**: Users can view their applied jobs and cancel their applications if necessary.
 - **Firebase Authentication**: Robust user authentication using Firebase for a seamless and secure login experience.
 
-## Getting Started
-
-To get a local copy up and running follow these simple steps.
 
 ### Technology Used
 
@@ -29,6 +26,10 @@ To get a local copy up and running follow these simple steps.
 - React Hook Form
 - React icon
 - axios
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
 
 ### Installation
 
