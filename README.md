@@ -23,12 +23,12 @@ Make sure you have npm installed on your system.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/arifadnan05/impact-connect.git
+       https://github.com/arifadnan05/impact-connect.git
 2. Install all dependency
    ```sh
-   npm install
+       npm install
 4. Live Preview
    ```sh
-     npm run dev
+       npm run dev
 
 ##### For any query feel free to ask me any time
