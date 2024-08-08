@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useForm } from "react-hook-form"
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../../../../firebase/Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const UpdateMyPost = () => {
@@ -24,21 +25,24 @@ const UpdateMyPost = () => {
     const onSubmit = async (data) => {
         // console.log(data)
         const { thumbnailUrl, description, post_title, category, location, volunteers_number, deadline } = data;
-        const modifyJobPost = {thumbnailUrl, description, post_title, category, location, volunteers_number, deadline, organizerEmail, OrganizerName}
+        const modifyJobPost = { thumbnailUrl, description, post_title, category, location, volunteers_number, deadline, organizerEmail, OrganizerName }
 
 
         try {
             const { data } = await axios.put(`https://impact-connect-server.vercel.app/my-job-post/${_id}`, modifyJobPost)
             console.log(data)
-            if(data.modifiedCount > 0) {
-
-                alert('Job data updated successful')
+            if (data.modifiedCount > 0) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your post has been deleted.",
+                    icon: "success"
+                });
             }
         }
         catch (err) {
             console.log(err)
         }
-       
+
     }
 
 
