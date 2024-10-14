@@ -6,19 +6,22 @@ import { AuthContext } from "../../../../../firebase/Provider/AuthProvider";
 import { Link } from "react-router-dom";
 
 const ManageMyPost = () => {
-  const [myJobPost, setMyJobPost] = useState([])
-  const { user } = useContext(AuthContext)
+  const [myJobPost, setMyJobPost] = useState([]);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    getData()
-  }, [user])
+    getData();
+  }, [user]);
 
   const getData = async () => {
-    const { data } = await axios(`https://impact-connect-server.vercel.app/my-job-posts/${user?.email}`, {withCredentials: true})
-    setMyJobPost(data)
-  }
+    const { data } = await axios(
+      `https://impact-connect-server.vercel.app/my-job-posts/${user?.email}`,
+      { withCredentials: true }
+    );
+    setMyJobPost(data);
+  };
 
-  const handleDelete = async id => {
+  const handleDelete = async (id) => {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -27,31 +30,33 @@ const ManageMyPost = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
         if (result.isConfirmed) {
-          axios.delete(`https://impact-connect-server.vercel.app/my-job-post/${id}`)
+          await axios.delete(
+            `https://impact-connect-server.vercel.app/my-job-post/${id}`
+          );
           Swal.fire({
             title: "Deleted!",
             text: "Your post has been deleted.",
-            icon: "success"
+            icon: "success",
           });
+
+          // Update the state by filtering out the deleted post
+          setMyJobPost(myJobPost.filter((post) => post._id !== id));
         }
-        getData()
-        
       });
-
-
+    } catch (err) {
+      console.log(err.message);
     }
-    catch (err) {
-      console.log(err.message)
-      console.log(err.message)
+  };
 
-    }
+  if (myJobPost.length < 1) {
+    return (
+      <Empty message={"Post not found"} address={"/"} label={"Go To Home"} />
+    );
   }
-  if (myJobPost < 1) {
-    return <Empty message={'Post not found'} address={'/'} label={'Go To Home'}></Empty>
-  }
+
   return (
     <div className="overflow-x-auto min-h-[60vh]">
       <table className="table">
@@ -65,14 +70,16 @@ const ManageMyPost = () => {
           </tr>
         </thead>
         <tbody>
-
-          {
-            myJobPost.map(item => <tr key={item._id}>
+          {myJobPost.map((item) => (
+            <tr key={item._id}>
               <td>
                 <div className="flex items-center gap-3">
                   <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">
-                      <img src={item.thumbnailUrl} alt="Avatar Tailwind CSS Component" />
+                      <img
+                        src={item.thumbnailUrl}
+                        alt="Avatar Tailwind CSS Component"
+                      />
                     </div>
                   </div>
                   <div>
@@ -90,16 +97,19 @@ const ManageMyPost = () => {
                 </Link>
               </th>
               <th>
-                <button onClick={() => handleDelete(item._id)} className="btn btn-primary">Delete</button>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="btn btn-primary"
+                >
+                  Delete
+                </button>
               </th>
-            </tr>)
-          }
-
+            </tr>
+          ))}
         </tbody>
-
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default ManageMyPost
+export default ManageMyPost;

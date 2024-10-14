@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const HomeJobPost = ({ item }) => {
+    // eslint-disable-next-line react/prop-types
     const { post_title, thumbnailUrl, category, deadline, _id } = item;
     // console.log(deadline)
     return (
