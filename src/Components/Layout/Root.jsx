@@ -31,7 +31,7 @@ const Root = () => {
                     /></div>
                 ) : (
                     <div>
-                        <div className='px-11'>
+                        <div className='container mx-auto px-6 lg:px-24 mt-3'>
                             <Navbar></Navbar>
                             <ToastContainer />
                         </div>

@@ -47,7 +47,7 @@ const Navbar = () => {
     </>
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-base-300 mb-5 rounded">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -58,7 +58,7 @@ const Navbar = () => {
                             {navLinks}
                         </ul>
                     </div>
-                    <Link to='/'><a className="btn btn-ghost text-xl">ImpactConnect</a></Link>
+                    <Link to='/'><a className="btn btn-ghost text-xl">Impact Connect</a></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 z-50">
